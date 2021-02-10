@@ -20,11 +20,11 @@ SINCE=2020-01-01 # Only fetch data since this date (Default: null)
 ```yml
 version: '3.4'
 services:
-	todoist-activity:
-		build: .
-		container_name: todoist-activity
-		environment:
-			- TOKEN=12345678abcdef012345
-		volumes:
-			- ./todoist-activities.json:/usr/src/app/output.json
+  todoist-activity:
+    build: .
+    container_name: todoist-activity
+    environment:
+      - TOKEN=12345678abcdef012345
+    volumes:
+      - ./todoist-activities.json:/usr/src/app/output.json
 ```
