@@ -1,0 +1,13 @@
+{
+  "name": "full-activity",
+  "version": "1.0.0",
+  "description": "Gets all activity from Todoist",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodex index.js"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "got": "^11.8.1"
+  }
+}
