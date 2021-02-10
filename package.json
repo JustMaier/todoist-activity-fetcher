@@ -1,10 +1,11 @@
 {
-  "name": "full-activity",
+  "name": "todoist-activity-fetcher",
   "version": "1.0.0",
   "description": "Gets all activity from Todoist",
   "main": "index.js",
+  "license": "MIT",
   "scripts": {
-    "start": "nodex index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
