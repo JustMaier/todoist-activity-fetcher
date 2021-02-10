@@ -13,9 +13,11 @@ const todoist = got.extend({
 })
 
 const since = process.env.SINCE ? new Date(process.env.SINCE) : null
+const emptyPageLimit = process.env.EMPTY_PAGE_LIMIT || 3
+const object_event_types = process.env.OBJECT_EVENT_TYPES || '[]'
 async function* getActivities(){
     let page = 0, emptyPageCount = 0, sinceMatch = false
-    while (emptyPageCount < process.env.EMPTY_PAGE_LIMIT && !sinceMatch) {
+    while (emptyPageCount < emptyPageLimit && !sinceMatch) {
         console.log(`page: ${page}`)
         
         let limit = 100, offset = 0, remaining = null
@@ -23,12 +25,7 @@ async function* getActivities(){
             console.log(`offset: ${offset}, remaining: ${remaining}`)
             
             let { body: {count, events}} = await todoist('activity/get', {
-                form: {
-                    limit,
-                    offset,
-                    object_event_types: process.env.OBJECT_EVENT_TYPES,
-                    page
-                }
+                form: { limit, offset, object_event_types, page }
             })
 
             if (count === 0) emptyPageCount++
@@ -52,7 +49,8 @@ async function* getActivities(){
 
 (async () => {
     // Prepare output
-    const stream = fs.createWriteStream(process.env.OUTPUT_DEST);
+    const outputDest = process.env.OUTPUT_DEST || './output.json'
+    const stream = fs.createWriteStream(outputDest)
     stream.write('[')
     let sep = ''
     for await (let events of getActivities()) {
